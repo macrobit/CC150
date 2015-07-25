@@ -10,6 +10,7 @@ package chapter1;
 **	2. Check if the two strings have identical character counts.*/
 
 import java.util.Arrays;
+
 import java.lang.Character;
 
 public class Q3 {
@@ -27,10 +28,10 @@ public class Q3 {
 					content[i] = content[i+1];
 					content[i+1] = tmp;
 					swap = true;
-					newLen = i+1;
+					newLen = i+1; // the position of the last swap
 				}			
 			}
-			len = newLen;
+			len = newLen; // len should be changed outside of the for loop
 		}  while(swap) ;
 		
 //		return Arrays.toString(content);	
@@ -44,7 +45,7 @@ public class Q3 {
 		return sort(s).equals(sort(t));
 	}
 	
-// Method 2	
+// Method 2	: time O(1). This method is better to deal with whitespace omission.
 /*	1. Iterate one string to count the characters in it and store the result in an int array.
 	2. Use this array to check the other string.*/
 	
@@ -52,9 +53,12 @@ public class Q3 {
 		int[] count_array = new int[256];
 		System.out.println("" + Arrays.toString(count_array));
 		char[] char_array = n.toLowerCase().toCharArray();
+		
+		// count the appearance of each character.
 		for(char c : char_array) {
 			count_array[c]++;
 		}
+		
 		return count_array;
 	}
 	
@@ -62,12 +66,21 @@ public class Q3 {
 		if(s.length() != t.length) return false;
 		
 		int[] letters = count(s);
+		
 		for(int i = 0; i < t.length; i++) {
 			int c = Character.toLowerCase(t[i]);
 			if(--letters[c] < 0) {
 				return false;
 			}
 		}
+		
+/*		for(char c : t) {
+			char n = Character.toLowerCase(c);
+			if(--letters[n] < 0) {
+				return false;
+			}
+		}*/
+		
 		return true;
 	}
 	public static void main(String[] args) {
